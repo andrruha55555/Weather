@@ -4,9 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Weather"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+                mc:Ignorable="d"
+        Title="Weather Forecast" Height="500" Width="800">
+
     <Grid>
-        
+        <ComboBox x:Name="Days" SelectionChanged="SelectDay" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Margin="10"/>
+
+        <ScrollViewer Margin="10,37,10,10">
+            <StackPanel x:Name="parent">
+
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

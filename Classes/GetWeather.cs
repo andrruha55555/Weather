@@ -4,6 +4,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using System;
+using Weather.Models;
 
 namespace Weather.Classes
 {
@@ -11,24 +15,25 @@ namespace Weather.Classes
     {
         public static string Url = "https://api.weather.yandex.ru/v2/forecast";
         public static string Key = "demo_yandex_weather_api_key_ca6d09349ba0";
-        public static async void Get(float lat, float lon)
+        private static async Task<DataResponse> GetFromApi(float lat, float lon)
         {
+            DataResponse dataResponse = null;
             string url = $"{Url}?lat={lat}&lon={lon}".Replace(",", ".");
 
-            using (HttpClient Client = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
-                using (HttpRequestMessage Request = new HttpRequestMessage(
-                    HttpMethod.Get,
-                    url))
+                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url))
                 {
-                    Request.Headers.Add("X-Yandex-Weather-Key", Key);
+                    request.Headers.Add("X-Yandex-Weather-Key", WeatherKey);
 
-                    using (var Response = await Client.SendAsync(Request))
+                    using (var response = await client.SendAsync(request))
                     {
-                        string DataResponse = await Response.Content.ReadAsStringAsync();
+                        string contentResponse = await response.Content.ReadAsStringAsync();
+                        dataResponse = JsonConvert.DeserializeObject<DataResponse>(contentResponse);
                     }
                 }
             }
+            return dataResponse;
         }
     }
 }
