@@ -88,10 +88,12 @@ namespace Weather.Models
         {
             string result = "";
             switch (this.prec_type)
+
             {
                 case 0:
                     result = "без осадков";
                     break;
+
                 case 1:
 
                     result = "дождь";
