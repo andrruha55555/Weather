@@ -9,7 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\photo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="9.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\photo.jpg" />
   </ItemGroup>
 
 </Project>

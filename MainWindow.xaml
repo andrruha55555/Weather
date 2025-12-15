@@ -7,13 +7,12 @@
         mc:Ignorable="d"
         Title="SkyCast Pro" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
         Background="{StaticResource LightSkyBrush}">
 
     <Grid>
-        <!-- Основной градиентный фон -->
         <Rectangle Fill="{StaticResource MainGradient}" Opacity="0.95"/>
 
-        <!-- Эффект частиц (симуляция) -->
         <Ellipse Width="200" Height="200" 
                  Opacity="0.1" 
                  Fill="{StaticResource SunYellowBrush}" 
@@ -24,7 +23,6 @@
                  Fill="White" 
                  Margin="100,400,0,0"/>
 
-        <!-- Основной контейнер -->
         <Border CornerRadius="20" 
                 Margin="30" 
                 Background="White" 
@@ -36,7 +34,6 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Верхняя панель с навигацией -->
                 <Border Grid.Row="0" 
                         Background="{StaticResource SkyBlueBrush}"
                         CornerRadius="20,20,0,0"
@@ -49,35 +46,40 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Логотип и название -->
                         <StackPanel Grid.Column="0" 
-                                    Orientation="Horizontal" 
-                                    VerticalAlignment="Center">
+            Orientation="Horizontal" 
+            VerticalAlignment="Center">
 
-                            <Ellipse Width="40" 
-                                     Height="40" 
-                                     Fill="White">
-                                <Ellipse.Effect>
-                                    <DropShadowEffect BlurRadius="10" 
-                                                      Opacity="0.2" 
-                                                      ShadowDepth="2"/>
-                                </Ellipse.Effect>
-                            </Ellipse>
+                            <StackPanel Orientation="Vertical" 
+            VerticalAlignment="Center"
+            Margin="0,0,10,0">
+
+                                <Border Width="44" Height="44" CornerRadius="22">
+                                    <Image Source="Images\photo.jpg" Stretch="UniformToFill"/>
+                                </Border>
+
+                                <TextBlock Text="Выполнил: Андрей Пикулев"
+               Foreground="White"
+               FontSize="9"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               Margin="0,4,0,0"/>
+                            </StackPanel>
 
                             <TextBlock Text="⛅" 
-                                     FontSize="24" 
-                                     Margin="10,0,0,0"
-                                     VerticalAlignment="Center"/>
+                                       
+             FontSize="24" 
+             Margin="0,0,5,0"
+             VerticalAlignment="Center"/>
 
-                            <TextBlock Text="SkyCast Pro" 
-                                     Foreground="White"
-                                     FontSize="24"
-                                     FontWeight="Bold"
-                                     Margin="10,0,0,0"
-                                     VerticalAlignment="Center"/>
+                            <TextBlock Text="Погодка)))" 
+             Foreground="White"
+             FontSize="24"
+             FontWeight="Bold"
+             Margin="5,0,0,0"
+             VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        <!-- Центральный элемент выбора -->
                         <Border Grid.Column="1" 
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
@@ -86,43 +88,84 @@
                                 Padding="5">
 
                             <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="CityTextBox" 
+                                         Text="Пермь"
+                                         Width="160"
+                                         Height="40"
+                                         BorderBrush="Transparent"
+                                         Background="Transparent"
+                                         Foreground="{StaticResource TextDarkBrush}"
+                                         FontSize="14"
+                                         VerticalContentAlignment="Center"
+                                         Padding="12,0"
+                                         VerticalAlignment="Center"/>
+
+                                <Button Content="🔍" 
+                                      Style="{StaticResource IconButtonStyle}"
+                                      Width="40" 
+                                      Height="40"
+                                      Margin="5,0,10,0"
+                                      FontSize="16"
+                                      Click="Update"/>
+
                                 <ComboBox x:Name="Days" 
                                         SelectionChanged="SelectDay"
                                         Style="{StaticResource ModernComboBox}"
                                         Width="200"
-                                        Margin="5"/>
-
-                                <Button Content="📍" 
-                                      Style="{StaticResource IconButtonStyle}"
-                                      Width="40" 
-                                      Height="40"
-                                      Margin="5,0,0,0"
-                                      FontSize="16"/>
+                                        Margin="0"
+                                        VerticalAlignment="Center"/>
                             </StackPanel>
                         </Border>
 
-                        <!-- Дополнительные элементы -->
                         <StackPanel Grid.Column="2" 
                                   Orientation="Horizontal"
-                                  VerticalAlignment="Center">
+                                  VerticalAlignment="Center"
+                                  Margin="10,0,0,0">
 
-                            <Button Content="⚙" 
-                                  Style="{StaticResource IconButtonStyle}"
-                                  Margin="0,0,10,0"/>
+                            <Border Background="White"
+                                    CornerRadius="8"
+                                    Padding="10"
+                                    Margin="0,0,10,0">
+                                <StackPanel>
+                                    <TextBlock x:Name="LimitInfo" 
+                                             Text="0/50"
+                                             Foreground="{StaticResource RainBlueBrush}"
+                                             FontSize="12"
+                                             FontWeight="Bold"
+                                             HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Лимит"
+                                             Foreground="{StaticResource TextGrayBrush}"
+                                             FontSize="10"
+                                             HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
 
-                            <Button Content="📊" 
-                                  Style="{StaticResource IconButtonStyle}"/>
+                            <Border Background="White"
+                                    CornerRadius="8"
+                                    Padding="10">
+                                <StackPanel>
+                                    <TextBlock x:Name="CacheInfo" 
+                                             Text="Кэш: 0"
+                                             Foreground="{StaticResource WarmOrangeBrush}"
+                                             FontSize="12"
+                                             FontWeight="Bold"
+                                             HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="CacheSource" 
+                                             Text="API"
+                                             Foreground="{StaticResource TextGrayBrush}"
+                                             FontSize="10"
+                                             HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
                         </StackPanel>
                     </Grid>
                 </Border>
 
-                <!-- Основной контент -->
                 <ScrollViewer Grid.Row="1" 
                             Style="{StaticResource ModernScrollViewer}"
                             Padding="30">
 
-                    <StackPanel x:Name="parent">
-                        <!-- Карточка с основной информацией -->
+                    <StackPanel>
                         <Border Style="{StaticResource ModernCard}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -131,28 +174,32 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Левая часть - температура -->
                                 <StackPanel Grid.Column="0" 
-                                          HorizontalAlignment="Center">
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center">
 
-                                    <TextBlock Text="🌡" 
-                                             Style="{StaticResource WeatherIcon}"/>
+                                    <TextBlock x:Name="CurrentTempIcon" 
+                                             Text="🌡" 
+                                             Style="{StaticResource WeatherIcon}"
+                                             FontSize="32"/>
 
-                                    <TextBlock Text="24°" 
+                                    <TextBlock x:Name="CurrentTemperature" 
+                                           Text="--°" 
                                            Style="{StaticResource TemperatureHighlight}"
                                            Foreground="{StaticResource WarmOrangeBrush}"/>
 
-                                    <TextBlock Text="Ощущается как 26°" 
+                                    <TextBlock x:Name="FeelsLike" 
+                                           Text="Ощущается как --°" 
                                            Style="{StaticResource ConditionTextStyle}"
                                            HorizontalAlignment="Center"/>
 
-                                    <TextBlock Text="📍 Москва, Россия" 
+                                    <TextBlock x:Name="CurrentCity" 
+                                           Text="📍 Выберите город" 
                                            Style="{StaticResource TimeTextStyle}"
                                            HorizontalAlignment="Center"
                                            Margin="0,10,0,0"/>
                                 </StackPanel>
 
-                                <!-- Центр - иконка погоды -->
                                 <Border Grid.Column="1" 
                                       Width="120" 
                                       Height="120"
@@ -161,19 +208,21 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center">
 
-                                    <TextBlock Text="☀️" 
+                                    <TextBlock x:Name="WeatherIconLarge" 
+                                           Text="⛅" 
                                            FontSize="48"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"/>
                                 </Border>
 
-                                <!-- Правая часть - детали -->
                                 <StackPanel Grid.Column="2" 
-                                          Margin="20,0,0,0">
+                                          Margin="20,0,0,0"
+                                          VerticalAlignment="Center">
 
                                     <TextBlock Text="Детали прогноза" 
                                              Style="{StaticResource SectionHeader}" 
-                                             Foreground="{StaticResource TextDarkBrush}"/>
+                                             Foreground="{StaticResource TextDarkBrush}"
+                                             Margin="0,0,0,20"/>
 
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -186,51 +235,47 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <!-- Влажность -->
                                         <StackPanel Grid.Row="0" 
                                                   Grid.Column="0" 
                                                   Margin="0,0,10,10">
-
-                                            <TextBlock Text="💧 65%" 
-                                                     Style="{StaticResource MetricValue}"/>
-
+                                            <TextBlock x:Name="HumidityValue" 
+                                                     Text="💧 --%" 
+                                                     Style="{StaticResource MetricValue}"
+                                                     FontSize="20"/>
                                             <TextBlock Text="Влажность" 
                                                      Style="{StaticResource MetricLabel}"/>
                                         </StackPanel>
 
-                                        <!-- Ветер -->
                                         <StackPanel Grid.Row="0" 
                                                   Grid.Column="1" 
                                                   Margin="10,0,0,10">
-
-                                            <TextBlock Text="💨 12 км/ч" 
-                                                     Style="{StaticResource MetricValue}"/>
-
-                                            <TextBlock Text="Ветер" 
+                                            <TextBlock x:Name="ConditionValue" 
+                                                     Text="🌤 --" 
+                                                     Style="{StaticResource MetricValue}"
+                                                     FontSize="20"/>
+                                            <TextBlock Text="Состояние" 
                                                      Style="{StaticResource MetricLabel}"/>
                                         </StackPanel>
 
-                                        <!-- Давление -->
                                         <StackPanel Grid.Row="1" 
                                                   Grid.Column="0" 
                                                   Margin="0,10,10,0">
-
-                                            <TextBlock Text="📊 1013 hPa" 
-                                                     Style="{StaticResource MetricValue}"/>
-
-                                            <TextBlock Text="Давление" 
+                                            <TextBlock x:Name="PrecipitationValue" 
+                                                     Text="☔ --" 
+                                                     Style="{StaticResource MetricValue}"
+                                                     FontSize="20"/>
+                                            <TextBlock Text="Осадки" 
                                                      Style="{StaticResource MetricLabel}"/>
                                         </StackPanel>
 
-                                        <!-- Восход -->
                                         <StackPanel Grid.Row="1" 
                                                   Grid.Column="1" 
                                                   Margin="10,10,0,0">
-
-                                            <TextBlock Text="🌅 06:30" 
-                                                     Style="{StaticResource MetricValue}"/>
-
-                                            <TextBlock Text="Восход" 
+                                            <TextBlock x:Name="UpdateTime" 
+                                                     Text="🕐 --:--" 
+                                                     Style="{StaticResource MetricValue}"
+                                                     FontSize="20"/>
+                                            <TextBlock Text="Обновлено" 
                                                      Style="{StaticResource MetricLabel}"/>
                                         </StackPanel>
                                     </Grid>
@@ -238,98 +283,42 @@
                             </Grid>
                         </Border>
 
-                        <!-- Почасовой прогноз -->
                         <TextBlock Text="⏳ Почасовой прогноз" 
-                                 Style="{StaticResource SectionHeader}"
-                                 Margin="0,20,0,0"/>
+         Margin="0,20,0,10">
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#4A90E2" Offset="0"/>
+                                    <GradientStop Color="#87CEEB" Offset="1"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource SectionHeader}">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect BlurRadius="8" 
+                                    Opacity="0.3" 
+                                    ShadowDepth="1"
+                                    Color="#4A90E2"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto" 
-                                    VerticalScrollBarVisibility="Disabled"
-                                    Height="160"
-                                    Margin="0,0,0,20">
-
-                            <StackPanel x:Name="HourlyPanel" 
-                                      Orientation="Horizontal">
-
-                                <!-- Примерные карточки часового прогноза -->
-                                <Border Style="{StaticResource HourlyCard}" 
-                                      Margin="0,0,10,0">
-
-                                    <StackPanel>
-                                        <TextBlock Text="Сейчас" 
-                                                 Style="{StaticResource TimeSlot}"/>
-
-                                        <TextBlock Text="☀️" 
-                                                 Style="{StaticResource WeatherIcon}" 
-                                                 FontSize="20"/>
-
-                                        <TextBlock Text="24°" 
-                                                 Style="{StaticResource MetricValue}"
-                                                 FontSize="20"/>
-
-                                        <TextBlock Text="Солнечно" 
-                                                 Style="{StaticResource MetricLabel}"/>
-                                    </StackPanel>
-                                </Border>
-
-                                <!-- Другие карточки будут добавляться динамически -->
-
-                            </StackPanel>
-                        </ScrollViewer>
-
-                        <!-- Дополнительная информация -->
-                        <Border Style="{StaticResource ModernCard}">
-                            <StackPanel>
-                                <TextBlock Text="📈 Статистика дня" 
-                                         Style="{StaticResource SectionHeader}" 
-                                         Foreground="{StaticResource TextDarkBrush}"/>
-
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <StackPanel Grid.Column="0">
-                                        <TextBlock Text="🔆 12ч" 
-                                                 Style="{StaticResource MetricValue}" 
-                                                 FontSize="20"/>
-
-                                        <TextBlock Text="Световой день" 
-                                                 Style="{StaticResource MetricLabel}"/>
-                                    </StackPanel>
-
-                                    <StackPanel Grid.Column="1">
-                                        <TextBlock Text="🌡 18°-26°" 
-                                                 Style="{StaticResource MetricValue}" 
-                                                 FontSize="20"/>
-
-                                        <TextBlock Text="Диапазон" 
-                                                 Style="{StaticResource MetricLabel}"/>
-                                    </StackPanel>
-
-                                    <StackPanel Grid.Column="2">
-                                        <TextBlock Text="👁 10 км" 
-                                                 Style="{StaticResource MetricValue}" 
-                                                 FontSize="20"/>
-
-                                        <TextBlock Text="Видимость" 
-                                                 Style="{StaticResource MetricLabel}"/>
-                                    </StackPanel>
-
-                                    <StackPanel Grid.Column="3">
-                                        <TextBlock Text="☂️ 0%" 
-                                                 Style="{StaticResource MetricValue}" 
-                                                 FontSize="20"/>
-
-                                        <TextBlock Text="Осадки" 
-                                                 Style="{StaticResource MetricLabel}"/>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
+                        <Border Background="White"
+                                CornerRadius="12"
+                                Padding="10"
+                                Margin="0,0,0,20">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                                        VerticalScrollBarVisibility="Disabled"
+                                        Height="160">
+                                <StackPanel x:Name="HourlyPanel" 
+                                          Orientation="Horizontal">
+                                    
+                                </StackPanel>
+                            </ScrollViewer>
                         </Border>
+
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

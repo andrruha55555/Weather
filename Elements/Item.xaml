@@ -33,7 +33,6 @@
                        VerticalAlignment="Center"/>
             </StackPanel>
 
-            <!-- Состояние с иконкой погоды -->
             <StackPanel Grid.Column="1" 
                         Orientation="Horizontal" 
                         HorizontalAlignment="Center">
@@ -49,7 +48,6 @@
                        VerticalAlignment="Center"/>
             </StackPanel>
 
-            <!-- Влажность с иконкой капли -->
             <StackPanel Grid.Column="2" 
                         Orientation="Horizontal" 
                         HorizontalAlignment="Center">
@@ -65,7 +63,6 @@
                        VerticalAlignment="Center"/>
             </StackPanel>
 
-            <!-- Осадки с иконкой -->
             <StackPanel Grid.Column="3" 
                         Orientation="Horizontal" 
                         HorizontalAlignment="Center">
@@ -81,7 +78,6 @@
                        VerticalAlignment="Center"/>
             </StackPanel>
 
-            <!-- Температура с иконкой термометра -->
             <StackPanel Grid.Column="4" 
                         Orientation="Horizontal" 
                         HorizontalAlignment="Center">

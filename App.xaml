@@ -4,7 +4,6 @@
              xmlns:local="clr-namespace:Weather"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!-- Основные цвета погодной темы -->
         <Color x:Key="SkyBlue">#4A90E2</Color>
         <Color x:Key="LightSky">#87CEEB</Color>
         <Color x:Key="SunYellow">#FFD700</Color>
@@ -15,7 +14,6 @@
         <Color x:Key="TextDark">#2C3E50</Color>
         <Color x:Key="TextGray">#7F8C8D</Color>
 
-        <!-- SolidColorBrush определения -->
         <SolidColorBrush x:Key="SkyBlueBrush" Color="{StaticResource SkyBlue}"/>
         <SolidColorBrush x:Key="LightSkyBrush" Color="{StaticResource LightSky}"/>
         <SolidColorBrush x:Key="SunYellowBrush" Color="{StaticResource SunYellow}"/>
@@ -26,7 +24,6 @@
         <SolidColorBrush x:Key="TextDarkBrush" Color="{StaticResource TextDark}"/>
         <SolidColorBrush x:Key="TextGrayBrush" Color="{StaticResource TextGray}"/>
 
-        <!-- Градиенты -->
         <LinearGradientBrush x:Key="MainGradient" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#87CEEB" Offset="0"/>
             <GradientStop Color="#4A90E2" Offset="0.6"/>
@@ -43,7 +40,6 @@
             <GradientStop Color="#FFA726" Offset="1"/>
         </LinearGradientBrush>
 
-        <!-- Тени и эффекты -->
         <DropShadowEffect x:Key="CardShadow" 
                          BlurRadius="20" 
                          Opacity="0.15" 
@@ -61,7 +57,6 @@
                          Opacity="0.1" 
                          ShadowDepth="2"/>
 
-        <!-- Стили кнопок -->
         <Style x:Key="MinimalMenuButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -226,7 +221,6 @@
             <Setter Property="Padding" Value="8,4"/>
         </Style>
 
-        <!-- Стили для ComboBox -->
         <Style x:Key="ModernComboBox" TargetType="ComboBox">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
@@ -279,7 +273,6 @@
             </Setter>
         </Style>
 
-        <!-- Стили для карточек -->
         <Style x:Key="WeatherCardStyle" TargetType="Border">
             <Setter Property="Background" Value="White"/>
             <Setter Property="CornerRadius" Value="8"/>
@@ -309,8 +302,8 @@
             <Setter Property="Height" Value="140"/>
             <Setter Property="Effect" Value="{StaticResource SmallShadow}"/>
         </Style>
-
-        <!-- Стили для текста -->
+        
+        
         <Style x:Key="WeatherHeaderStyle" TargetType="Border">
             <Setter Property="Background" Value="{StaticResource SkyBlueBrush}"/>
             <Setter Property="CornerRadius" Value="8,8,0,0"/>
@@ -382,7 +375,6 @@
             <Setter Property="Margin" Value="0,0,0,8"/>
         </Style>
 
-        <!-- Специальные стили -->
         <Style x:Key="HotTemperatureStyle" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
             <Setter Property="Foreground" Value="#FF6B35"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -393,7 +385,6 @@
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
-        <!-- Стили для ScrollViewer -->
         <Style x:Key="ModernScrollViewer" TargetType="ScrollViewer">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -401,6 +392,35 @@
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="Padding" Value="2"/>
         </Style>
-
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                  VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" 
+                                Value="{StaticResource SkyBlueBrush}"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>
