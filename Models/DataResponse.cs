@@ -93,6 +93,7 @@ namespace Weather.Models
                     result = "без осадков";
                     break;
                 case 1:
+
                     result = "дождь";
                     break;
                 case 2:
