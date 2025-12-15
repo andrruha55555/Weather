@@ -4,6 +4,403 @@
              xmlns:local="clr-namespace:Weather"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!-- Основные цвета погодной темы -->
+        <Color x:Key="SkyBlue">#4A90E2</Color>
+        <Color x:Key="LightSky">#87CEEB</Color>
+        <Color x:Key="SunYellow">#FFD700</Color>
+        <Color x:Key="CloudWhite">#F8F9FA</Color>
+        <Color x:Key="RainBlue">#5D9CEC</Color>
+        <Color x:Key="StormGray">#2C3E50</Color>
+        <Color x:Key="WarmOrange">#FFA726</Color>
+        <Color x:Key="TextDark">#2C3E50</Color>
+        <Color x:Key="TextGray">#7F8C8D</Color>
+
+        <!-- SolidColorBrush определения -->
+        <SolidColorBrush x:Key="SkyBlueBrush" Color="{StaticResource SkyBlue}"/>
+        <SolidColorBrush x:Key="LightSkyBrush" Color="{StaticResource LightSky}"/>
+        <SolidColorBrush x:Key="SunYellowBrush" Color="{StaticResource SunYellow}"/>
+        <SolidColorBrush x:Key="CloudWhiteBrush" Color="{StaticResource CloudWhite}"/>
+        <SolidColorBrush x:Key="RainBlueBrush" Color="{StaticResource RainBlue}"/>
+        <SolidColorBrush x:Key="StormGrayBrush" Color="{StaticResource StormGray}"/>
+        <SolidColorBrush x:Key="WarmOrangeBrush" Color="{StaticResource WarmOrange}"/>
+        <SolidColorBrush x:Key="TextDarkBrush" Color="{StaticResource TextDark}"/>
+        <SolidColorBrush x:Key="TextGrayBrush" Color="{StaticResource TextGray}"/>
+
+        <!-- Градиенты -->
+        <LinearGradientBrush x:Key="MainGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#87CEEB" Offset="0"/>
+            <GradientStop Color="#4A90E2" Offset="0.6"/>
+            <GradientStop Color="#2C3E50" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="CardGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="White" Offset="0"/>
+            <GradientStop Color="#F8F9FA" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="SunriseGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#FFD700" Offset="0"/>
+            <GradientStop Color="#FFA726" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Тени и эффекты -->
+        <DropShadowEffect x:Key="CardShadow" 
+                         BlurRadius="20" 
+                         Opacity="0.15" 
+                         ShadowDepth="3"
+                         Direction="270"/>
+
+        <DropShadowEffect x:Key="HeaderShadow" 
+                         BlurRadius="4" 
+                         Opacity="0.3" 
+                         ShadowDepth="1"
+                         Color="#2C3E50"/>
+
+        <DropShadowEffect x:Key="SmallShadow" 
+                         BlurRadius="10" 
+                         Opacity="0.1" 
+                         ShadowDepth="2"/>
+
+        <!-- Стили кнопок -->
+        <Style x:Key="MinimalMenuButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextGrayBrush}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="0,8"/>
+            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource CloudWhiteBrush}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#E8F4FD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource RainBlueBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="6"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#6AA4F0"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4A90E2"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#E0E7FF"/>
+                                <Setter Property="Foreground" Value="#A0B4D6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TextButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource RainBlueBrush}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="4"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource CloudWhiteBrush}"/>
+                                <Setter Property="Foreground" Value="{StaticResource SkyBlueBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="FloatingAddButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SunYellowBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Width" Value="48"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="24"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFE44D"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFC107"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="IconButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextGrayBrush}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Width" Value="28"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="4"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#E8F4FD"/>
+                                <Setter Property="Foreground" Value="{StaticResource SkyBlueBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#D4E7FA"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SmallTextButtonStyle" TargetType="Button" BasedOn="{StaticResource TextButtonStyle}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+        </Style>
+
+        <!-- Стили для ComboBox -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
+            <Setter Property="BorderBrush" Value="#E3F2FD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="border" 
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ContentPresenter x:Name="ContentSite"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Left"
+                                                    Margin="12,0,0,0"
+                                                    Content="{TemplateBinding SelectionBoxItem}"
+                                                    ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                    ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
+                                    <Path x:Name="arrow"
+                                        Grid.Column="1"
+                                        Data="M 0,0 L 8,0 L 4,4 Z"
+                                        Fill="{StaticResource TextGrayBrush}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Stretch="Uniform"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource SkyBlueBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsDropDownOpen" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource SkyBlueBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стили для карточек -->
+        <Style x:Key="WeatherCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BorderBrush" Value="#E3F2FD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Effect" Value="{StaticResource SmallShadow}"/>
+        </Style>
+
+        <Style x:Key="ModernCard" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardGradient}"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+        </Style>
+
+        <Style x:Key="HourlyCard" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderBrush" Value="#E8F4FD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="140"/>
+            <Setter Property="Effect" Value="{StaticResource SmallShadow}"/>
+        </Style>
+
+        <!-- Стили для текста -->
+        <Style x:Key="WeatherHeaderStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SkyBlueBrush}"/>
+            <Setter Property="CornerRadius" Value="8,8,0,0"/>
+            <Setter Property="Padding" Value="16,12"/>
+        </Style>
+
+        <Style x:Key="TemperatureTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource WarmOrangeBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <Style x:Key="ConditionTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="TimeTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextGrayBrush}"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style x:Key="IconTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+        </Style>
+
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Effect" Value="{StaticResource HeaderShadow}"/>
+        </Style>
+
+        <Style x:Key="MetricValue" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="MetricLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextGrayBrush}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
+        </Style>
+
+        <Style x:Key="TimeSlot" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextGrayBrush}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <Style x:Key="TemperatureHighlight" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="WeatherIcon" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <!-- Специальные стили -->
+        <Style x:Key="HotTemperatureStyle" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="Foreground" Value="#FF6B35"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="ColdTemperatureStyle" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="Foreground" Value="#3498DB"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <!-- Стили для ScrollViewer -->
+        <Style x:Key="ModernScrollViewer" TargetType="ScrollViewer">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+
     </Application.Resources>
 </Application>
