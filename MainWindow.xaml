@@ -110,8 +110,7 @@
 
                                 <ComboBox x:Name="Days" 
                                         SelectionChanged="SelectDay"
-                                        Style="{StaticResource ModernComboBox}"
-                                        Width="200"
+                                        Width="183"
                                         Margin="0"
                                         VerticalAlignment="Center"/>
                             </StackPanel>
@@ -166,123 +165,7 @@
                             Padding="30">
 
                     <StackPanel>
-                        <Border Style="{StaticResource ModernCard}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                
-
-                                <StackPanel Grid.Column="0" 
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center">
-
-                                    <TextBlock x:Name="CurrentTempIcon" 
-                                             Text="🌡" 
-                                             Style="{StaticResource WeatherIcon}"
-                                             FontSize="32"/>
-
-                                    <TextBlock x:Name="CurrentTemperature" 
-                                           Text="--°" 
-                                           Style="{StaticResource TemperatureHighlight}"
-                                           Foreground="{StaticResource WarmOrangeBrush}"/>
-
-                                    <TextBlock x:Name="FeelsLike" 
-                                           Text="Ощущается как --°" 
-                                           Style="{StaticResource ConditionTextStyle}"
-                                           HorizontalAlignment="Center"/>
-
-                                    <TextBlock x:Name="CurrentCity" 
-                                           Text="📍 Выберите город" 
-                                           Style="{StaticResource TimeTextStyle}"
-                                           HorizontalAlignment="Center"
-                                           Margin="0,10,0,0"/>
-                                </StackPanel>
-
-                                <Border Grid.Column="1" 
-                                      Width="120" 
-                                      Height="120"
-                                      CornerRadius="60"
-                                      Background="{StaticResource LightSkyBrush}"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center">
-
-                                    <TextBlock x:Name="WeatherIconLarge" 
-                                           Text="⛅" 
-                                           FontSize="48"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"/>
-                                </Border>
-
-                                <StackPanel Grid.Column="2" 
-                                          Margin="20,0,0,0"
-                                          VerticalAlignment="Center">
-
-                                    <TextBlock Text="Детали прогноза" 
-                                             Style="{StaticResource SectionHeader}" 
-                                             Foreground="{StaticResource TextDarkBrush}"
-                                             Margin="0,0,0,20"/>
-
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <StackPanel Grid.Row="0" 
-                                                  Grid.Column="0" 
-                                                  Margin="0,0,10,10">
-                                            <TextBlock x:Name="HumidityValue" 
-                                                     Text="💧 --%" 
-                                                     Style="{StaticResource MetricValue}"
-                                                     FontSize="20"/>
-                                            <TextBlock Text="Влажность" 
-                                                     Style="{StaticResource MetricLabel}"/>
-                                        </StackPanel>
-
-                                        <StackPanel Grid.Row="0" 
-                                                  Grid.Column="1" 
-                                                  Margin="10,0,0,10">
-                                            <TextBlock x:Name="ConditionValue" 
-                                                     Text="🌤 --" 
-                                                     Style="{StaticResource MetricValue}"
-                                                     FontSize="20"/>
-                                            <TextBlock Text="Состояние" 
-                                                     Style="{StaticResource MetricLabel}"/>
-                                        </StackPanel>
-
-                                        <StackPanel Grid.Row="1" 
-                                                  Grid.Column="0" 
-                                                  Margin="0,10,10,0">
-                                            <TextBlock x:Name="PrecipitationValue" 
-                                                     Text="☔ --" 
-                                                     Style="{StaticResource MetricValue}"
-                                                     FontSize="20"/>
-                                            <TextBlock Text="Осадки" 
-                                                     Style="{StaticResource MetricLabel}"/>
-                                        </StackPanel>
-
-                                        <StackPanel Grid.Row="1" 
-                                                  Grid.Column="1" 
-                                                  Margin="10,10,0,0">
-                                            <TextBlock x:Name="UpdateTime" 
-                                                     Text="🕐 --:--" 
-                                                     Style="{StaticResource MetricValue}"
-                                                     FontSize="20"/>
-                                            <TextBlock Text="Обновлено" 
-                                                     Style="{StaticResource MetricLabel}"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
+                        
 
                         <TextBlock Text="⏳ Почасовой прогноз" 
          Margin="0,20,0,10">
@@ -307,19 +190,6 @@
                         </TextBlock>
 
                         <!-- Контейнер для почасового прогноза -->
-                        <Border Background="White"
-                                CornerRadius="12"
-                                Padding="10"
-                                Margin="0,0,0,20">
-                            <ScrollViewer HorizontalScrollBarVisibility="Auto" 
-                                        VerticalScrollBarVisibility="Disabled"
-                                        Height="160">
-                                <StackPanel x:Name="HourlyPanel" 
-                                          Orientation="Horizontal">
-                                    <!-- Почасовые данные будут добавляться динамически -->
-                                </StackPanel>
-                            </ScrollViewer>
-                        </Border>
 
                         <!-- Добавляем StackPanel с именем "parent" для отображения детального прогноза -->
                         <StackPanel x:Name="parent" 
