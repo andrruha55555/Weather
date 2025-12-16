@@ -19,7 +19,7 @@ namespace Weather.Classes
             connectionString = ConfigurationManager.ConnectionStrings["WeatherCacheDB"]?.ConnectionString;
             if (string.IsNullOrEmpty(connectionString))
             {
-                connectionString = "Server=localhost;Database=weather_cache;Uid=root;Pwd=;";
+                connectionString = "Server=127.0.0.1;Port=3306;Database=weather_cache;Uid=root;Pwd=;";
             }
         }
         public static async Task<DataResponse> GetCachedWeather(string cityName)

@@ -305,6 +305,7 @@
                             </TextBlock.Style>
                         </TextBlock>
 
+                        <!-- Контейнер для почасового прогноза -->
                         <Border Background="White"
                                 CornerRadius="12"
                                 Padding="10"
@@ -314,10 +315,16 @@
                                         Height="160">
                                 <StackPanel x:Name="HourlyPanel" 
                                           Orientation="Horizontal">
-                                    
+                                    <!-- Почасовые данные будут добавляться динамически -->
                                 </StackPanel>
                             </ScrollViewer>
                         </Border>
+
+                        <!-- Добавляем StackPanel с именем "parent" для отображения детального прогноза -->
+                        <StackPanel x:Name="parent" 
+                                    Margin="0,20,0,0">
+                            <!-- Здесь будут добавляться элементы Item -->
+                        </StackPanel>
 
                     </StackPanel>
                 </ScrollViewer>
