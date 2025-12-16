@@ -173,6 +173,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+                                
 
                                 <StackPanel Grid.Column="0" 
                                           HorizontalAlignment="Center"
